@@ -1,4 +1,4 @@
-# Nama Proyek
+# MCF Technical Test
 
 Proyek ini terdiri dari aplikasi backend dan frontend yang semuanya dibangun dengan .NET. Ikuti langkah-langkah di bawah ini untuk memulai dan menjalankan proyek.
 
