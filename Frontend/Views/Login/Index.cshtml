@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Frontend.styles.css" asp-append-version="true" />
+</head>
+<body style="background-color:orange">
+
+    <div class="container d-flex justify-content-center align-items-center" style="margin-top:300px;">
+        <div class="row col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    @if (TempData["message"] != null)
+                    {
+                        <div class="alert alert-danger" role="alert" style="margin-bottom:10px;">
+                            @TempData["message"]
+                        </div>
+                    }
+                    <h3>Login</h3>
+                </div>
+                <div class="card-body">
+                    <form method="post" asp-action="Auth">
+                       
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="text" placeholder="Username" class="form-control" id="username" name="username" />
+                        </div>
+                        <div class="col-md-12">
+                            <input type="password" placeholder="Password" class="form-control" style="margin-top:10px" id="password" name="password" />
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-outline-primary" type="submit" style="width:100%;margin-top:25px">Login</button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

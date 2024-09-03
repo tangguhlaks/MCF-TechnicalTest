@@ -1,6 +1,7 @@
 ﻿using BackendAPI.Data;
 using BackendAPI.Repository;
 using BackendAPI.Response;
+using BackendAPI.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -58,7 +59,7 @@ namespace BackendAPI.Controllers
         [HttpGet("GetBpkb")]
         public async Task<IActionResult> GetBpkb()
         {
-            BaseResponse<List<Bpkb>> response = new BaseResponse<List<Bpkb>>();
+            BaseResponse<List<BpkbVM>> response = new BaseResponse<List<BpkbVM>>();
             try
             {
                 response.code = 200;

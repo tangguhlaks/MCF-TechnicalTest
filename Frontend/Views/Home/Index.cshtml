@@ -1,0 +1,196 @@
+﻿@model Bpkb
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+    <div class="col-md-10">
+        <div class="text-left">
+            <h3 class="display-4">Welcome, @ViewBag.username</h3>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="text-right">
+            <a style="margin-top:20px;" href="@Url.Action("Logout","Home")" class="btn btn-danger">Logout</a>
+        </div>
+    </div>
+</div>
+
+<hr />
+<div style="padding:20px">
+    <div class="row">
+        <div class="col-md-12">
+            @if (TempData["success-message"] != null)
+            {
+                <div class="alert alert-success" role="alert" style="margin-bottom:10px;">
+                    @TempData["success-message"]
+                </div>
+                <br /><br />
+            }
+            @if (TempData["error-message"] != null)
+            {
+                <div class="alert alert-danger" role="alert" style="margin-bottom:10px;">
+                    @TempData["error-message"]
+                </div>
+                <br />
+
+                <br />
+            }
+            <button id="addButton" class="btn btn-primary">Add New Entry</button>
+            <br />
+            <br />
+
+            <!-- Hidden Form -->
+            <div id="addForm" style="display:none; margin-top: 20px;">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 id="title-form">Add New Data</h4>
+                    </div>
+                    <div class="card-body">
+                        <form id="entryForm" asp-action="Create" method="post">
+                            <div class="form-group">
+                                <label for="agreement_number">Agreement Number</label>
+                                <input type="text" class="form-control" id="agreement_number" name="agreement_number" required />
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="branch_id">Branch ID</label>
+                                <input type="text" class="form-control" id="branch_id" name="branch_id" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="bpkb_no">BPKB No</label>
+                                <input type="text" class="form-control" id="bpkb_no" name="bpkb_no" required />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bpkb_date">BPKB Date</label>
+                                <input type="date" class="form-control" id="bpkb_date" name="bpkb_date" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="bpkb_date_in">BPKB Date In</label>
+                                <input type="date" class="form-control" id="bpkb_date_in" name="bpkb_date_in" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="faktur_no">Faktur No</label>
+                                <input type="text" class="form-control" id="faktur_no" name="faktur_no" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="faktur_date">Faktur Date</label>
+                                <input type="date" class="form-control" id="faktur_date" name="faktur_date" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="police_no">Police No</label>
+                                <input type="text" class="form-control" id="police_no" name="police_no" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="location_id">Location Storage</label>
+                                <select class="form-control" id="location_id" name="location_id" required />
+                                    <option value="">--- Select Location ---</option>
+                                    @foreach (var v in ViewBag.storages)
+                                    {
+                                        <option value="@v.location_id">@v.location_name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <br />
+                                <button type="submit" class="btn btn-primary text-white" id="button-form">Submit</button>
+                                <button type="button" class="btn btn-secondary" id="cancelButton">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <br /></<br />
+
+            <table id="dataTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Agreement Number</th>
+                        <th>Branch ID</th>
+                        <th>BPKB No</th>
+                        <th>BPKB Date</th>
+                        <th>BPKB Date In</th>
+                        <th>Faktur No</th>
+                        <th>Faktur Date</th>
+                        <th>Police No</th>
+                        <th>Location ID</th>
+                        <th>Created By</th>
+                        <th>Created On</th>
+                        <th>Last Updated By</th>
+                        <th>Last Updated On</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var v in ViewBag.listData)
+                    {
+                        <tr>
+                            <td>@v.agreement_number</td>
+                            <td>@v.branch_id</td>
+                            <td>@v.bpkb_no</td>
+                            <td>@v.bpkb_date.ToString("yyyy-MM-dd")</td>
+                            <td>@v.bpkb_date_in.ToString("yyyy-MM-dd")</td>
+                            <td>@v.faktur_no</td>
+                            <td>@v.faktur_date.ToString("yyyy-MM-dd")</td>
+                            <td>@v.police_no</td>
+                            <td>@v.location_name</td>
+                            <td>@v.created_by</td>
+                            <td>@v.created_on.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td>@v.last_updated_by</td>
+                            <td>@v.last_updated_on.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                            <td>
+                                <button class="btn btn-warning edit-button text-white" data-id="@v.agreement_number" data-branch-id="@v.branch_id" data-bpkb-no="@v.bpkb_no" data-bpkb-date="@v.bpkb_date.ToString("yyyy-MM-dd")"
+                                        data-bpkb-date-in="@v.bpkb_date_in.ToString("yyyy-MM-dd")" data-faktur-no="@v.faktur_no" data-faktur-date="@v.faktur_date.ToString("yyyy-MM-dd")"
+                                        data-police-no="@v.police_no" data-location-id="@v.location_id">
+                                    Edit
+                                </button>
+                                <a class="btn btn-danger" href="@Url.Action("Delete", "Home", new { agreement_number = v.agreement_number })">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable();
+
+            // Toggle form visibility
+            $('#addButton').on('click', function () {
+                $('#addForm').toggle(); // Show or hide the form
+            });
+
+            $('#cancelButton').on('click', function () {
+                $('#addForm').hide(); // Hide the form
+            });
+
+            $('.edit-button').on('click', function () {
+                var button = $(this);
+                $("#title-form").html("Update Data")
+                $("#button-form").html("Update")
+                $("#button-form").removeClass("btn-primary").addClass("btn-warning");
+                $('#entryForm').attr('action', '@Url.Action("Update", "Home")'); // Set form action to update
+
+                // Populate form fields
+                $('#agreement_number').val(button.data('id'));
+                $('#agreement_number').attr('readonly',true)
+                $('#branch_id').val(button.data('branch-id'));
+                $('#bpkb_no').val(button.data('bpkb-no'));
+                $('#bpkb_date').val(button.data('bpkb-date'));
+                $('#bpkb_date_in').val(button.data('bpkb-date-in'));
+                $('#faktur_no').val(button.data('faktur-no'));
+                $('#faktur_date').val(button.data('faktur-date'));
+                $('#police_no').val(button.data('police-no'));
+                $('#location_id').val(button.data('location-id'));
+
+                $('#addForm').show(); // Show the form
+            });
+        });
+    </script>
+}

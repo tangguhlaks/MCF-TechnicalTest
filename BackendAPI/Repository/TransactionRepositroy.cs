@@ -1,5 +1,6 @@
 ﻿using BackendAPI.Context;
 using BackendAPI.Data;
+using BackendAPI.ViewModel;
 
 namespace BackendAPI.Repository
 {
@@ -48,13 +49,32 @@ namespace BackendAPI.Repository
             }
         }
 
-        public List<Bpkb>? GetBpkb()
+        public List<BpkbVM>? GetBpkb()
         {
             try
             {
-                return _context.Bpkbs.ToList();
+                return (from a in _context.Bpkbs
+                        join b in _context.StorageLocations on a.location_id equals b.location_id
+                        select new BpkbVM
+                        {
+                            agreement_number = a.agreement_number,
+                            bpkb_no = a.bpkb_no,
+                            branch_id = a.branch_id,
+                            bpkb_date = a.bpkb_date,
+                            faktur_no = a.faktur_no,
+                            faktur_date = a.faktur_date,
+                            location_id = b.location_id,
+                            location_name = b.location_name,
+                            police_no = a.police_no,
+                            bpkb_date_in = a.bpkb_date_in,
+                            created_by = a.created_by,
+                            created_on = a.created_on,
+                            last_updated_by = a.last_updated_by,
+                            last_updated_on = a.last_updated_on
+                        }).ToList();
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 return null;
@@ -92,8 +112,6 @@ namespace BackendAPI.Repository
                 existingBpkb.location_id = bpkb.location_id;
                 existingBpkb.police_no = bpkb.police_no;
                 existingBpkb.bpkb_date_in = bpkb.bpkb_date_in;
-                existingBpkb.created_by = bpkb.created_by;
-                existingBpkb.created_on = bpkb.created_on;
                 existingBpkb.last_updated_by = bpkb.last_updated_by;
                 existingBpkb.last_updated_on = bpkb.last_updated_on;
 

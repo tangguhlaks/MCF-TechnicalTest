@@ -1,4 +1,5 @@
 ﻿using BackendAPI.Data;
+using BackendAPI.ViewModel;
 
 namespace BackendAPI.Repository
 {
@@ -6,7 +7,7 @@ namespace BackendAPI.Repository
     {
         string CreateBpkb(Bpkb bpkb);
         Bpkb? GetBpkbByAgreementNumber(string agreementNumber);
-        List<Bpkb>? GetBpkb();
+        List<BpkbVM>? GetBpkb();
         string UpdateBpkb(Bpkb bpkb);
         bool DeleteBpkb(string agreementNumber);
     }

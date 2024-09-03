@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "R4xhcM7fcvjz0XEGiYVWi+xFtNXvMDK3WlS1wa8WTY+kwmNiRYg4kW0lFYpEUipEKlAFxdzzGCnTwr2oATy4aw==",
+  "success": true,
+  "projectFilePath": "C:\\Project\\MCFTest\\Frontend\\Frontend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tangguh laksana\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
